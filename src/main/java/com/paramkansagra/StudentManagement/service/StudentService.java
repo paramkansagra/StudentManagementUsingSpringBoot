@@ -4,13 +4,19 @@ import com.paramkansagra.StudentManagement.dto.AddStudentRequestDTO;
 import com.paramkansagra.StudentManagement.dto.StudentDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentService {
-    public StudentDTO getStudentByID(Long id);
+    StudentDTO getStudentByID(Long id);
 
-    public List<StudentDTO> getStudents();
+    List<StudentDTO> getStudents();
 
-    public StudentDTO createNewStudent(AddStudentRequestDTO addStudentRequestDTO);
+    StudentDTO createNewStudent(AddStudentRequestDTO addStudentRequestDTO);
 
-    public void deleteStudentById(Long id);
+    StudentDTO updateStudent(Long id, AddStudentRequestDTO updateStudentDTO);
+
+    StudentDTO updatePartialStudent(Long id , Map<Object , Object> updates);
+
+    void deleteStudentById(Long id);
+
 }
