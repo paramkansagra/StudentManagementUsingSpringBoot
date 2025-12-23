@@ -3,6 +3,7 @@ package com.paramkansagra.StudentManagement.controller;
 import com.paramkansagra.StudentManagement.dto.AddStudentRequestDTO;
 import com.paramkansagra.StudentManagement.dto.StudentDTO;
 import com.paramkansagra.StudentManagement.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,11 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudentByID(id));
     }
 
+
+    // @Valid would make sure that the input DTO is valid based on the validations given
+    // If the validations do not pass then it will not even go in the controller section
     @PostMapping
-    public ResponseEntity<StudentDTO> createNewStudent(@RequestBody AddStudentRequestDTO addStudentRequestDTO){
+    public ResponseEntity<StudentDTO> createNewStudent(@RequestBody @Valid AddStudentRequestDTO addStudentRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createNewStudent(addStudentRequestDTO));
     }
 
@@ -45,7 +49,7 @@ public class StudentController {
     // Put is used for changing most of the things of the user
     @PutMapping("/{id}")
     // Because we don't want to accept userid in the dto we will resue the AddStudentRequestDTO
-    public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id , @RequestBody AddStudentRequestDTO updateStudentRequestDTO){
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id , @RequestBody @Valid AddStudentRequestDTO updateStudentRequestDTO){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(studentService.updateStudent(id , updateStudentRequestDTO));
     }
 
